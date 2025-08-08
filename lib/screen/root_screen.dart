@@ -24,7 +24,6 @@ class _RootScreenState extends State<RootScreen> {
 
   void _onSideNavSelect(int index) {
     if (index == 2) {
-      print('log out');
       return;
     }
 
