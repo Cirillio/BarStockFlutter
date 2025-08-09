@@ -9,5 +9,6 @@ class Success<T> extends Result<T> {
 
 class Failure<T> extends Result<T> {
   final String message;
-  const Failure(this.message);
+  final String? code;
+  const Failure(this.message, {this.code});
 }
