@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'core/router/router.dart';
 import 'package:bar_stock/screen/login_screen.dart';
 
 class BarStockApp extends ConsumerWidget {

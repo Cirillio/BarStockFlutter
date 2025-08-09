@@ -1,13 +1,13 @@
 import 'package:bar_stock/core/constants/state_status.dart';
 
-class LoginState {
+class RegisterState {
   final String? error;
   final StateStatus status;
 
-  const LoginState({this.error, this.status = StateStatus.initial});
+  const RegisterState({this.error, this.status = StateStatus.initial});
 
-  LoginState copyWith({String? error, StateStatus? status}) {
-    return LoginState(
+  RegisterState copyWith({String? error, StateStatus? status}) {
+    return RegisterState(
       error: error ?? this.error,
       status: status ?? this.status,
     );

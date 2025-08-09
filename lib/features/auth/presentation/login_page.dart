@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:bar_stock/core/constants/state_status.dart';
 
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
@@ -36,114 +37,131 @@ class LoginPage extends HookConsumerWidget {
             ],
           ).withMargin(vertical: 96),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextField(
-                style: TextStyle(fontSize: 18),
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                placeholder: Text('Enter your email'),
-                onTapOutside: (_) =>
-                    FocusManager.instance.primaryFocus?.unfocus(),
-                controller: email,
-              ),
-              const SizedBox(height: 16),
+          Form(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                FormField(
+                  key: const InputKey('email'),
+                  label: Text(''),
+                  child: TextField(
+                    features: [InputFeature.clear()],
+                    keyboardType: TextInputType.emailAddress,
+                    style: TextStyle(fontSize: 18),
+                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                    placeholder: Text('Enter your email'),
+                    onTapOutside: (_) =>
+                        FocusManager.instance.primaryFocus?.unfocus(),
+                    controller: email,
+                  ),
+                ),
 
-              TextField(
-                features: [
-                  InputFeature.passwordToggle(mode: PasswordPeekMode.toggle),
-                ],
-                style: TextStyle(fontSize: 18),
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                placeholder: Text('Enter your password'),
-                onTapOutside: (_) =>
-                    FocusManager.instance.primaryFocus?.unfocus(),
-                controller: pass,
-              ),
-              Text(
-                'Forgot password?',
-              ).xSmall.muted.withPadding(left: 8, top: 8),
-              const SizedBox(height: 32),
+                const SizedBox(height: 16),
 
-              if (state.error != null)
+                TextField(
+                  features: [
+                    InputFeature.passwordToggle(mode: PasswordPeekMode.toggle),
+                  ],
+                  style: TextStyle(fontSize: 18),
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                  placeholder: Text('Enter your password'),
+                  onTapOutside: (_) =>
+                      FocusManager.instance.primaryFocus?.unfocus(),
+                  controller: pass,
+                ),
                 Text(
-                  state.error!,
-                  style: TextStyle(color: theme.colorScheme.destructive),
-                ).withPadding(bottom: 16),
+                  'Forgot password?',
+                ).xSmall.muted.withPadding(left: 8, top: 8),
+                const SizedBox(height: 32),
 
-              Button(
-                style: ButtonVariance.primary,
-                onPressed: state.isLoading
-                    ? null
-                    : () => ctrl.login(email.text.trim(), pass.text.trim()),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                if (state.error != null)
+                  Text(
+                    state.error!,
+                    style: TextStyle(color: theme.colorScheme.destructive),
+                  ).withPadding(bottom: 16),
+
+                Button(
+                  enabled: state.status != StateStatus.submitting,
+                  style: ButtonVariance.primary,
+                  onPressed: () {
+                    ctrl.login(email.text.trim(), pass.text.trim());
+                  },
+                  child: Row(
+                    spacing: 4,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (state.status == StateStatus.submitting)
+                        const CircularProgressIndicator(
+                          size: 24,
+                        ).withMargin(horizontal: 8),
+                      Text(
+                        'Sign In',
+                        style: TextStyle(
+                          color: state.status == StateStatus.submitting
+                              ? theme.colorScheme.muted
+                              : null,
+                        ),
+                      ),
+                    ],
+                  ).withMargin(vertical: 4),
+                ),
+
+                Row(
+                  spacing: 16,
                   children: [
-                    if (state.isLoading)
-                      const CircularProgressIndicator(size: 16),
+                    Expanded(flex: 2, child: const Divider(thickness: 1)),
                     Text(
-                      'Sign In',
+                      'or continue with',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: state.isLoading ? theme.colorScheme.muted : null,
+                        color: theme.colorScheme.accentForeground,
+                      ),
+                    ),
+                    Expanded(flex: 2, child: const Divider(thickness: 1)),
+                  ],
+                ).withMargin(vertical: 32),
+                Flex(
+                  spacing: 16,
+                  direction: Axis.horizontal,
+                  children: [
+                    Expanded(
+                      child: Button.outline(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: 8,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icons/google.svg',
+                              width: 24,
+                              height: 24,
+                            ),
+                            Text('Google').withMargin(vertical: 8),
+                          ],
+                        ),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Expanded(
+                      child: Button.outline(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: 8,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icons/discord.svg',
+                              width: 24,
+                              height: 24,
+                            ),
+                            Text('Discord').withMargin(vertical: 8),
+                          ],
+                        ),
+                        onPressed: () {},
                       ),
                     ),
                   ],
-                ).withMargin(vertical: 4),
-              ),
-
-              Row(
-                spacing: 16,
-                children: [
-                  Expanded(flex: 2, child: const Divider(thickness: 1)),
-                  Text(
-                    'or continue with',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: theme.colorScheme.accentForeground),
-                  ),
-                  Expanded(flex: 2, child: const Divider(thickness: 1)),
-                ],
-              ).withMargin(vertical: 32),
-              Flex(
-                spacing: 16,
-                direction: Axis.horizontal,
-                children: [
-                  Expanded(
-                    child: Button.outline(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        spacing: 8,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/icons/google.svg',
-                            width: 24,
-                            height: 24,
-                          ),
-                          Text('Google').withMargin(vertical: 8),
-                        ],
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                  Expanded(
-                    child: Button.outline(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        spacing: 8,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/icons/discord.svg',
-                            width: 24,
-                            height: 24,
-                          ),
-                          Text('Discord').withMargin(vertical: 8),
-                        ],
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
           Expanded(child: Container()),
           Button(

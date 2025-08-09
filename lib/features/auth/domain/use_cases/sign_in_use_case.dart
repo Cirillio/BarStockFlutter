@@ -1,5 +1,4 @@
 import 'package:bar_stock/features/auth/domain/repos/auth_repository.dart';
-import '../entities/user_entity.dart';
 import '../result.dart';
 
 /// A use case for signing in a user.
@@ -17,7 +16,7 @@ class SignInUseCase {
   ///
   /// Returns a [Result] containing a [UserEntity] on success, or an error
   /// message on failure.
-  Future<Result<UserEntity>> call(String email, String pass) {
+  Future<Result<void>> call(String email, String pass) {
     return authRepo.signIn(email, pass);
   }
 }

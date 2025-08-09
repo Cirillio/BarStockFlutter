@@ -1,12 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import '../../screen/root_screen.dart';
 import '../../screen/login_screen.dart';
 import '../../screen/register_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _authNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'auth');
-final _mainNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'main');
+// final _mainNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'main');
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
