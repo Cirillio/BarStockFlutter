@@ -49,7 +49,16 @@ dependencies:
   go_router: ^16.1.0
   supabase_flutter: ^2.9.1
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "assets/icons/appIcon.png"
+
+  adaptive_icon_background: "#A43D47" # цвет фона (hex)
+  adaptive_icon_foreground: "assets/icons/appIcon.png"
+
 dev_dependencies:
+  flutter_launcher_icons: ^0.14.4
   flutter_test:
     sdk: flutter
 

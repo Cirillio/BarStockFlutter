@@ -8,6 +8,9 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.ds);
 
   @override
+  bool get isSignIn => ds.session != null;
+
+  @override
   Future<Result<void>> signIn(String email, String password) async {
     try {
       final res = await ds.signIn(email, password);
@@ -15,7 +18,9 @@ class AuthRepositoryImpl implements AuthRepository {
       if (user == null) return const Failure('Нет данных пользователя');
       return Success(null);
     } on AuthException catch (e) {
-      return Failure(e.message);
+      return Failure(
+        e.statusCode == '400' ? 'Указаны некорректные данные' : e.message,
+      );
     } catch (_) {
       return const Failure('Неизвестная ошибка при входе');
     }

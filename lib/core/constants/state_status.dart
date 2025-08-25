@@ -1,1 +1,1 @@
-enum StateStatus { initial, submitting, success, error }
+enum StateStatus { initial, submitting, success, failure }

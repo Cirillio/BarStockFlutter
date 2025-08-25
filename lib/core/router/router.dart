@@ -1,27 +1,48 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../screen/login_screen.dart';
-import '../../screen/register_screen.dart';
+import 'package:bar_stock/screen/auth_screen.dart';
+import 'package:bar_stock/screen/root_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:bar_stock/core/router/router_listenable.dart';
+import 'package:bar_stock/core/router/app_routes.dart';
 
-final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _authNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'auth');
-// final _mainNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'main');
+final routerProvider = Provider<GoRouter>((ref) {
+  final auth = Supabase.instance.client.auth;
 
-final router = GoRouter(
-  navigatorKey: _rootNavigatorKey,
-  routes: [
-    // Маршрут аутентификации
-    GoRoute(path: '/auth', redirect: (_, __) => '/auth/login'),
-    GoRoute(
-      path: '/auth/login',
-      builder: (_, __) => const LoginScreen(),
-      parentNavigatorKey: _authNavigatorKey,
-    ),
-    GoRoute(
-      path: '/auth/login',
-      builder: (_, __) => const RegisterScreen(),
-      parentNavigatorKey: _authNavigatorKey,
-    ),
-    // Основной маршрут с навигационной панелью
-  ],
-);
+  final refresh = AuthListenable(auth.onAuthStateChange);
+  ref.onDispose(refresh.dispose);
+
+  return GoRouter(
+    initialLocation: auth.currentSession != null
+        ? AppRoutes.root
+        : AppRoutes.auth,
+    refreshListenable: refresh,
+    routes: [
+      GoRoute(
+        path: AppRoutes.auth,
+        name: 'auth',
+        builder: (context, state) => const AuthScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.root,
+        name: 'root',
+        builder: (context, state) => const RootScreen(),
+      ),
+    ],
+
+    redirect: (context, state) {
+      final isLoggedIn = auth.currentSession != null;
+      final isAuthPage = state.matchedLocation == AppRoutes.auth;
+
+      if (isLoggedIn && isAuthPage) {
+        return AppRoutes.root;
+      }
+
+      if (!isLoggedIn && !isAuthPage) {
+        return AppRoutes.auth;
+      }
+
+      return null;
+    },
+  );
+});

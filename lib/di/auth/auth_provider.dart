@@ -6,8 +6,8 @@ import '../../features/auth/domain/use_cases/sign_up_use_case.dart';
 import '../../features/auth/domain/repos/auth_repository.dart';
 import '../../features/auth/data/auth_data_source.dart';
 import '../../features/auth/data/auth_repository_impl.dart';
-import '../../features/auth/presentation/login/login_controller.dart';
-import '../../features/auth/presentation/login/login_state.dart';
+import '../../features/auth/presentation/auth_controller.dart';
+import 'package:bar_stock/features/auth/presentation/login/login_state.dart';
 
 final supabaseClientProvider = Provider<SupabaseClient>(
   (ref) => Supabase.instance.client,
@@ -33,7 +33,10 @@ final signOutUseCaseProvider = Provider<SignOutUseCase>(
   (ref) => SignOutUseCase(authRepo: ref.read(authRepositoryProvider)),
 );
 
-final loginControllerProvider =
-    StateNotifierProvider<LoginController, LoginState>(
-      (ref) => LoginController(ref.read(signInUseCaseProvider)),
+final authControllerProvider =
+    StateNotifierProvider<AuthController, LoginState>(
+      (ref) => AuthController(
+        ref.read(signInUseCaseProvider),
+        ref.read(signOutUseCaseProvider),
+      ),
     );

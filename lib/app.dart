@@ -1,15 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:bar_stock/screen/login_screen.dart';
+import 'package:bar_stock/core/router/router.dart';
 
 class BarStockApp extends ConsumerWidget {
   const BarStockApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ShadcnApp(
+    final router = ref.watch(routerProvider);
+    return ShadcnApp.router(
       title: 'Bar Stock',
-      home: Column(children: [const LoginScreen()]),
+      routerConfig: router,
       theme: ThemeData(
         typography: Typography.geist(sans: TextStyle(fontFamily: 'Geist')),
         colorScheme: ColorSchemes.lightRose(),
