@@ -5,6 +5,10 @@ import 'package:bar_stock/screen/root_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:bar_stock/core/router/router_listenable.dart';
 import 'package:bar_stock/core/router/app_routes.dart';
+import 'package:bar_stock/features/profile/presentation/page.dart';
+import 'package:bar_stock/features/stock/presentation/page.dart';
+import 'package:bar_stock/features/analytics/presentation/page.dart';
+import 'package:bar_stock/features/sales/presentation/page.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final auth = Supabase.instance.client.auth;
@@ -14,7 +18,7 @@ final routerProvider = Provider<GoRouter>((ref) {
 
   return GoRouter(
     initialLocation: auth.currentSession != null
-        ? AppRoutes.root
+        ? AppRoutes.stock
         : AppRoutes.auth,
     refreshListenable: refresh,
     routes: [
@@ -23,10 +27,43 @@ final routerProvider = Provider<GoRouter>((ref) {
         name: 'auth',
         builder: (context, state) => const AuthScreen(),
       ),
-      GoRoute(
-        path: AppRoutes.root,
-        name: 'root',
-        builder: (context, state) => const RootScreen(),
+
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, shell) => RootScreen(shell: shell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.stock,
+                builder: (context, state) => const StockPage(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.sales,
+                builder: (context, state) => const SalesPage(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.analytics,
+                builder: (context, state) => const AnalyticsPage(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.profile,
+                builder: (context, state) => const ProfilePage(),
+              ),
+            ],
+          ),
+        ],
       ),
     ],
 
@@ -35,7 +72,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       final isAuthPage = state.matchedLocation == AppRoutes.auth;
 
       if (isLoggedIn && isAuthPage) {
-        return AppRoutes.root;
+        return AppRoutes.stock;
       }
 
       if (!isLoggedIn && !isAuthPage) {
