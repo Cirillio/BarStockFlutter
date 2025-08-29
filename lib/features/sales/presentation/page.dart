@@ -6,6 +6,13 @@ class SalesPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Button.card(child: Text('Sales Page'));
+    return Column(
+      children: [
+        Button(
+          style: ButtonStyle.card(size: ButtonSize.xSmall),
+          child: Text('Sales Page'),
+        ),
+      ],
+    );
   }
 }

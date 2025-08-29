@@ -53,7 +53,19 @@ class AuthController extends StateNotifier<LoginState> {
   }
 
   Future<void> logout() async {
-    await logOut.call();
-    state = state.copyWith(status: StateStatus.initial, errors: {});
+    state = state.copyWith(status: StateStatus.submitting, errors: {});
+    final result = await logOut.call();
+
+    switch (result) {
+      case Success():
+        state = state.copyWith(status: StateStatus.success, errors: {});
+        break;
+      case Failure(:final message):
+        state = state.copyWith(
+          status: StateStatus.failure,
+          errors: {LoginField.general: message},
+        );
+        break;
+    }
   }
 }
