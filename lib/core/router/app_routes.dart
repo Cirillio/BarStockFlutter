@@ -7,8 +7,6 @@ class AppRoutes {
   static const sales = '/sales';
   static const analytics = '/analytics';
 
-  static const profile = '/profile';
-
   static String getTitle(String branch) {
     switch (branch) {
       case AppRoutes.stock:
@@ -17,8 +15,7 @@ class AppRoutes {
         return 'Sales';
       case AppRoutes.analytics:
         return 'Analytics';
-      case AppRoutes.profile:
-        return 'Profile';
+
       default:
         return '';
     }

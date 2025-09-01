@@ -1,5 +1,5 @@
 import 'package:bar_stock/features/auth/domain/repos/auth_repository.dart';
-import '../result.dart';
+import '../../../../core/utils/result.dart';
 
 /// A use case for signing in a user.
 ///

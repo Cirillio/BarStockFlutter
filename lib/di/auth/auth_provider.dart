@@ -1,12 +1,13 @@
+import 'package:bar_stock/features/auth/data/auth_data_source.dart';
+import 'package:bar_stock/features/auth/data/auth_repository_impl.dart';
+import 'package:bar_stock/features/auth/domain/repos/auth_repository.dart';
+import 'package:bar_stock/features/auth/domain/use_cases/sign_in_use_case.dart';
+import 'package:bar_stock/features/auth/domain/use_cases/sign_out_use_case.dart';
+import 'package:bar_stock/features/auth/domain/use_cases/sign_up_use_case.dart';
+import 'package:bar_stock/features/auth/presentation/auth_controller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../features/auth/domain/use_cases/sign_in_use_case.dart';
-import '../../features/auth/domain/use_cases/sign_out_use_case.dart';
-import '../../features/auth/domain/use_cases/sign_up_use_case.dart';
-import '../../features/auth/domain/repos/auth_repository.dart';
-import '../../features/auth/data/auth_data_source.dart';
-import '../../features/auth/data/auth_repository_impl.dart';
-import '../../features/auth/presentation/auth_controller.dart';
+
 import 'package:bar_stock/features/auth/presentation/login/login_state.dart';
 
 final supabaseClientProvider = Provider<SupabaseClient>(

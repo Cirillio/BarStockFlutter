@@ -1,7 +1,7 @@
 import 'package:bar_stock/features/auth/domain/repos/auth_repository.dart';
 import './auth_data_source.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:bar_stock/features/auth/domain/result.dart';
+import 'package:bar_stock/core/utils/result.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthDataSource ds;

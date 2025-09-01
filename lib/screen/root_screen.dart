@@ -20,15 +20,16 @@ class RootScreen extends ConsumerWidget {
     final title = AppRoutes.getTitle(location);
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       headers: [
         DecoratedBox(
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: context.theme.colorScheme.mutedForeground.withAlpha(30),
+                color: context.theme.colorScheme.mutedForeground.withAlpha(15),
                 offset: Offset(0, 2),
                 blurRadius: 8,
-                spreadRadius: 8,
+                spreadRadius: 2,
               ),
             ],
           ),

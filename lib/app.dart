@@ -9,6 +9,8 @@ class BarStockApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     return ShadcnApp.router(
+      debugShowCheckedModeBanner: false,
+      scaling: AdaptiveScaling.mobile,
       title: 'Bar Stock',
       routerConfig: router,
       theme: ThemeData(

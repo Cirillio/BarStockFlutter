@@ -53,7 +53,6 @@ class AppNavigationBar extends StatelessWidget {
           buildButton('Stock', LucideIcons.box),
           buildButton('Sales', LucideIcons.briefcaseBusiness),
           buildButton('Analytics', LucideIcons.chartPie),
-          buildButton('Profile', LucideIcons.user),
         ],
       ),
     );

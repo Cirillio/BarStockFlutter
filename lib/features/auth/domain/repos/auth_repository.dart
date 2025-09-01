@@ -1,4 +1,4 @@
-import '../result.dart';
+import 'package:bar_stock/core/utils/result.dart';
 
 abstract class AuthRepository {
   Future<Result<void>> signIn(String email, String password);

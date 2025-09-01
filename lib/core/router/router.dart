@@ -55,14 +55,6 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: AppRoutes.profile,
-                builder: (context, state) => const ProfilePage(),
-              ),
-            ],
-          ),
         ],
       ),
     ],
