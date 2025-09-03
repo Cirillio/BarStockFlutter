@@ -5,14 +5,10 @@ import 'package:bar_stock/features/auth/domain/use_cases/sign_in_use_case.dart';
 import 'package:bar_stock/features/auth/domain/use_cases/sign_out_use_case.dart';
 import 'package:bar_stock/features/auth/domain/use_cases/sign_up_use_case.dart';
 import 'package:bar_stock/features/auth/presentation/auth_controller.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:bar_stock/di/supabase.dart';
 
 import 'package:bar_stock/features/auth/presentation/login/login_state.dart';
-
-final supabaseClientProvider = Provider<SupabaseClient>(
-  (ref) => Supabase.instance.client,
-);
 
 final authDataSourceProvider = Provider<AuthDataSource>(
   (ref) => AuthDataSource(ref.read(supabaseClientProvider)),

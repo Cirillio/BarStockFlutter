@@ -5,7 +5,7 @@ import 'package:bar_stock/screen/root_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:bar_stock/core/router/router_listenable.dart';
 import 'package:bar_stock/core/router/app_routes.dart';
-import 'package:bar_stock/features/profile/presentation/page.dart';
+// import 'package:bar_stock/features/profile/presentation/page.dart';
 import 'package:bar_stock/features/stock/presentation/page.dart';
 import 'package:bar_stock/features/analytics/presentation/page.dart';
 import 'package:bar_stock/features/sales/presentation/page.dart';

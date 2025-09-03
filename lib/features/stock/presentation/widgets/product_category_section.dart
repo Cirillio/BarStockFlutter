@@ -1,19 +1,19 @@
 import 'package:bar_stock/features/stock/domain/entities/category.dart';
-import 'package:bar_stock/features/stock/domain/types/stock_typedef.dart';
+import 'package:bar_stock/features/stock/domain/entities/product_list_item.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
-import 'package:bar_stock/features/stock/presentation/widgets/item_card.dart';
+import 'package:bar_stock/features/stock/presentation/widgets/product_list_item_card.dart';
 
-class CategorySection extends ConsumerWidget {
-  const CategorySection({
+class ProductCategorySection extends ConsumerWidget {
+  const ProductCategorySection({
     super.key,
     required this.category,
-    required this.drinks,
+    required this.items,
   });
 
   final Category category;
-  final ProductList drinks;
+  final List<ProductListItem> items;
 
   static const double itemWidth = 160;
   static const double itemHeight = 240;
@@ -41,10 +41,10 @@ class CategorySection extends ConsumerWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            itemCount: drinks.length + 1,
+            itemCount: items.length + 1,
             separatorBuilder: (_, __) => const SizedBox(width: 16),
             itemBuilder: (context, index) {
-              if (index == drinks.length) {
+              if (index == items.length) {
                 return SizedBox(
                   width: itemWidth,
                   child: Button(
@@ -52,16 +52,19 @@ class CategorySection extends ConsumerWidget {
                       variance: ButtonVariance.outline,
                       size: ButtonSize.small,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      // Navigate to category page
+                      // GoRouter.of(context).push('/stock/category/${category.id}');
+                    },
                     child: const Text('Смотреть все'),
                   ),
                 );
               }
 
-              final item = drinks[index];
+              final item = items[index];
               return SizedBox(
                 width: itemWidth,
-                child: ItemCard(item: item),
+                child: ProductListItemCard(item: item),
               );
             },
           ),

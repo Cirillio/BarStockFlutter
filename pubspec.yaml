@@ -55,7 +55,7 @@ flutter_launcher_icons:
   ios: false
 
   adaptive_icon_background: "#A43D47" # цвет фона (hex)
-  adaptive_icon_foreground: "assets/icons/appIcon.png"
+  adaptive_icon_foreground: "assets/icons/appLogo.svg"
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.4

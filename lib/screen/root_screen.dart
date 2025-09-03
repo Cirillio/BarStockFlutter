@@ -13,9 +13,9 @@ class RootScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ctrl = ref.read(authControllerProvider.notifier);
-    final authState = ref.watch(authControllerProvider);
-    final router = GoRouter.of(context);
+    // final ctrl = ref.read(authControllerProvider.notifier);
+    // final authState = ref.watch(authControllerProvider);
+    // final router = GoRouter.of(context);
     final location = GoRouterState.of(context).matchedLocation;
     final title = AppRoutes.getTitle(location);
 

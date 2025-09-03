@@ -4,7 +4,7 @@ import 'package:bar_stock/features/auth/domain/failures/password_length_exceptio
 import 'package:bar_stock/features/auth/domain/use_cases/sign_in_use_case.dart';
 import 'package:bar_stock/features/auth/presentation/login/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/utils/result.dart';
+import 'package:bar_stock/core/utils/result.dart';
 import '../domain/auth_form_validator.dart';
 import 'package:bar_stock/core/constants/state_status.dart';
 

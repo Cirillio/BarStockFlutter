@@ -1,21 +1,19 @@
-// import 'package:bar_stock/core/router/app_routes.dart';
 import 'package:bar_stock/features/stock/domain/entities/item_unit.dart';
 import 'package:bar_stock/features/stock/domain/entities/product_list_item.dart';
 import 'package:flutter/services.dart';
-// import 'package:go_router/go_router.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
 
-class ItemCard extends StatefulWidget {
-  const ItemCard({super.key, required this.item});
+class ProductListItemCard extends StatefulWidget {
+  const ProductListItemCard({super.key, required this.item});
 
   final ProductListItem item;
 
   @override
-  State<ItemCard> createState() => _ItemCardState();
+  State<ProductListItemCard> createState() => _ProductListItemCardState();
 }
 
-class _ItemCardState extends State<ItemCard>
+class _ProductListItemCardState extends State<ProductListItemCard>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
@@ -89,8 +87,8 @@ class _ItemCardState extends State<ItemCard>
                         ? context.theme.colorScheme.mutedForeground.withAlpha(
                             100,
                           )
-                        : context.theme.colorScheme.primary.withAlpha(50),
-                    blurRadius: 2,
+                        : context.theme.colorScheme.primary.withAlpha(25),
+                    blurRadius: 4,
                     offset: const Offset(0, 0.5),
                   ),
                   if (_isPressed)
@@ -193,7 +191,7 @@ class _ItemCardState extends State<ItemCard>
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
-                                  '${widget.item.qty} ${_getUnitName(widget.item.unit)}',
+                                  '${widget.item.qty.toStringAsFixed(widget.item.qty % 1 == 0 ? 0 : 1)} ${_getUnitName(widget.item.unit)}',
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -253,15 +251,5 @@ class _ItemCardState extends State<ItemCard>
 }
 
 String _getUnitName(ItemUnit unit) {
-  switch (unit) {
-    case ItemUnit.bottle:
-      return 'бут.';
-    case ItemUnit.ml:
-      return 'мл';
-    case ItemUnit.portion:
-      return 'шт.';
-    case ItemUnit.g:
-      // TODO: Handle this case.
-      throw UnimplementedError();
-  }
+  return unit.displayName;
 }
