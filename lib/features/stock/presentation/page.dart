@@ -25,7 +25,7 @@ class _StockPageState extends ConsumerState<StockPage> {
     final stockState = ref.watch(stockListControllerProvider);
 
     if (stockState.isLoading) {
-      return const Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator(size: 24));
     }
 
     if (stockState.isFailure) {

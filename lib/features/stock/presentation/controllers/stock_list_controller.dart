@@ -1,15 +1,15 @@
 import 'package:bar_stock/core/constants/state_status.dart';
 import 'package:bar_stock/core/utils/result.dart';
 import 'package:bar_stock/features/stock/domain/use_cases/get_products_for_list_use_case.dart';
-import 'package:bar_stock/features/stock/presentation/stock_list_state.dart';
+import 'package:bar_stock/features/stock/presentation/states/stock_list_state.dart';
 import 'package:bar_stock/core/utils/logger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class StockListController extends StateNotifier<StockListState> {
   final GetProductsForListUseCase getProductsForListUseCase;
 
-  StockListController({required this.getProductsForListUseCase}) 
-      : super(const StockListState());
+  StockListController({required this.getProductsForListUseCase})
+    : super(const StockListState());
 
   Future<void> loadProductsForList() async {
     log.i("StockListController | Loading products for list");

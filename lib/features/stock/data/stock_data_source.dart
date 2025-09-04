@@ -135,37 +135,6 @@ class StockDataSource {
     }
   }
 
-  Future<ProductsResponse> getSampleProducts() async {
-    try {
-      log.i("StockDataSource | Fetching categories");
-
-      final categoriesResponse = await _client
-          .from('categories')
-          .select('id, name, icon_url')
-          .order('name');
-
-      final ProductsResponse stockList = [];
-
-      for (final c in categoriesResponse) {
-        final prod = await _client
-            .from('products')
-            .select(listItemsQuery)
-            .eq('category_id', c['id'])
-            .order('created_at')
-            .limit(2);
-        stockList.addAll(prod);
-      }
-
-      return stockList;
-    } on PostgrestException catch (e) {
-      log.e("StockDataSource | Database error: ${e.message}");
-      throw StockDataSourceException("Failed to fetch products: ${e.message}");
-    } catch (e) {
-      log.e("StockDataSource | Unexpected error: $e");
-      throw StockDataSourceException("Unexpected error occurred");
-    }
-  }
-
   Future<ProductsResponse> getAllProducts() async {
     try {
       log.i("StockDataSource | Fetching all products");
