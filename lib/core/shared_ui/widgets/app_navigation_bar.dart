@@ -4,11 +4,11 @@ import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
 
 class AppNavigationBar extends StatelessWidget {
   final bool expands = true;
-  final NavigationLabelType labelType = NavigationLabelType.all;
-  final NavigationBarAlignment alignment = NavigationBarAlignment.spaceAround;
+  final NavigationLabelType labelType = NavigationLabelType.tooltip;
+  final NavigationBarAlignment alignment = NavigationBarAlignment.spaceEvenly;
 
   final bool customButtonStyle = true;
-  final bool expanded = true;
+  final bool expanded = false;
 
   final StatefulNavigationShell shell;
 
@@ -26,35 +26,35 @@ class AppNavigationBar extends StatelessWidget {
       selectedStyle: customButtonStyle
           ? const ButtonStyle(
               size: ButtonSize.small,
-              variance: ButtonVariance.secondary,
+              variance: ButtonVariance.link,
               density: ButtonDensity.icon,
             )
           : null,
       label: Text(label),
-      child: Icon(icon),
+      child: Icon(icon, size: 24),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: context.theme.colorScheme.secondary,
-      child: NavigationBar(
-        spacing: 0,
-        labelType: labelType,
-        expanded: expanded,
-        expands: expands,
-        onSelected: (index) {
-          shell.goBranch(index);
-        },
-        index: shell.currentIndex,
-        backgroundColor: context.theme.colorScheme.muted,
-        children: [
-          buildButton('Stock', LucideIcons.box),
-          buildButton('Sales', LucideIcons.briefcaseBusiness),
-          buildButton('Analytics', LucideIcons.chartPie),
-        ],
-      ),
+    return Column(
+      children: [
+        const Divider(),
+        NavigationBar(
+          labelType: labelType,
+          expanded: expanded,
+          expands: expands,
+          onSelected: (index) {
+            shell.goBranch(index);
+          },
+          index: shell.currentIndex,
+          children: [
+            buildButton('Stock', LucideIcons.box),
+            buildButton('Sales', LucideIcons.briefcaseBusiness),
+            buildButton('Analytics', LucideIcons.chartPie),
+          ],
+        ),
+      ],
     );
   }
 }

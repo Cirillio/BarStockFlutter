@@ -50,6 +50,9 @@ class _StockPageState extends ConsumerState<StockPage> {
       );
     }
 
-    return CategoriesItemList(categoriesItemList: stockState.stockList);
+    return SingleChildScrollView(
+      physics: const ClampingScrollPhysics(),
+      child: CategoriesItemList(categoriesItemList: stockState.stockList),
+    );
   }
 }

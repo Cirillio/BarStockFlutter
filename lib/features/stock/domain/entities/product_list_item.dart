@@ -26,7 +26,8 @@ class ProductListItem {
       name: json['name'] as String,
       imageUrl: json['image_url'] as String? ?? '',
       category: Category.fromJson(json['categories'] as Map<String, dynamic>),
-      qty: ((json['inventory'] as Map<String, dynamic>)['qty'] as num).toDouble(),
+      qty: ((json['inventory'] as Map<String, dynamic>)['qty'] as num)
+          .toDouble(),
       unit: ItemUnitExtension.fromString(json['unit'] as String),
       minStock: (json['min_stock'] as num).toDouble(),
     );

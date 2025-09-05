@@ -1,5 +1,7 @@
+import 'package:bar_stock/core/shared_ui/widgets/item_card.dart';
 import 'package:bar_stock/features/stock/domain/entities/category.dart';
 import 'package:bar_stock/features/stock/domain/entities/product_list_item.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
@@ -21,21 +23,12 @@ class ProductCategorySection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
-      spacing: 2,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 8,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        DecoratedBox(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
-          child: Text(
-            category.name,
-            style: TextStyle(
-              color: context.theme.colorScheme.foreground,
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-            ),
-          ).withMargin(vertical: 4, horizontal: 16),
-        ),
-
+        OutlineBadge(
+          child: Text(category.name, style: const TextStyle(fontSize: 16)),
+        ).withMargin(horizontal: 16),
         SizedBox(
           height: itemHeight,
           child: ListView.separated(
@@ -47,16 +40,14 @@ class ProductCategorySection extends ConsumerWidget {
               if (index == items.length) {
                 return SizedBox(
                   width: itemWidth,
-                  child: Button(
-                    style: const ButtonStyle(
-                      variance: ButtonVariance.outline,
-                      size: ButtonSize.small,
+                  child: ItemCard(
+                    child: Center(
+                      child: Icon(
+                        LucideIcons.grip,
+                        size: 24,
+                        color: context.theme.colorScheme.primary.withAlpha(100),
+                      ),
                     ),
-                    onPressed: () {
-                      // Navigate to category page
-                      // GoRouter.of(context).push('/stock/category/${category.id}');
-                    },
-                    child: const Text('Смотреть все'),
                   ),
                 );
               }

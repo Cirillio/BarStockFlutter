@@ -74,7 +74,7 @@ class StockDataSource {
             .select(listItemsQuery)
             .eq('category_id', c['id'])
             .order('created_at')
-            .limit(2);
+            .limit(3);
         stockList.addAll(prod);
       }
 

@@ -2,6 +2,7 @@ import 'package:bar_stock/features/stock/domain/types/stock_typedef.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:bar_stock/features/stock/presentation/widgets/product_category_section.dart';
+import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
 
 class CategoriesItemList extends ConsumerWidget {
   const CategoriesItemList({super.key, required this.categoriesItemList});
@@ -25,22 +26,33 @@ class CategoriesItemList extends ConsumerWidget {
 
     final categories = categoriesItemList.keys.toList();
 
-    return NotificationListener<OverscrollIndicatorNotification>(
-      onNotification: (notification) {
-        notification.disallowIndicator();
-        return true;
-      },
-      child: ListView.separated(
-        itemCount: categories.length,
-        physics: const ClampingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        separatorBuilder: (_, __) => const SizedBox(height: 12),
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        itemBuilder: (context, index) {
-          final category = categories[index];
-          final items = categoriesItemList[category]!;
-          return ProductCategorySection(category: category, items: items);
-        },
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ...categories.map((category) {
+            final items = categoriesItemList[category]!;
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: ProductCategorySection(category: category, items: items),
+            );
+          }),
+          Center(
+            child: Button(
+              onPressed: () {},
+              style: const ButtonStyle(
+                variance: ButtonStyle.outline(),
+                size: ButtonSize.small,
+                density: ButtonDensity.comfortable,
+              ),
+              child: Text(
+                'Показать все товары',
+                style: TextStyle(color: context.theme.colorScheme.foreground),
+              ),
+            ).withMargin(vertical: 8, horizontal: 12).withMargin(vertical: 12),
+          ),
+        ],
       ),
     );
   }

@@ -5,7 +5,7 @@ import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:bar_stock/core/router/app_routes.dart';
 import "package:bar_stock/core/shared_ui/widgets/app_navigation_bar.dart";
 import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
-import 'package:bar_stock/core/shared_ui/widgets/app_header_bar.dart';
+import 'package:bar_stock/core/shared_ui/widgets/layout_header.dart';
 
 class RootScreen extends ConsumerWidget {
   final StatefulNavigationShell shell;
@@ -21,37 +21,36 @@ class RootScreen extends ConsumerWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      headers: [
-        DecoratedBox(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: context.theme.colorScheme.mutedForeground.withAlpha(15),
-                offset: Offset(0, 2),
-                blurRadius: 8,
-                spreadRadius: 2,
-              ),
-            ],
-          ),
-          child: AppHeaderBar(title: title),
-        ),
-      ],
+
       footers: [
         DecoratedBox(
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
                 color: context.theme.colorScheme.mutedForeground.withAlpha(30),
-                offset: Offset(0, -2),
-                blurRadius: 18,
-                spreadRadius: 8,
+                offset: Offset(0, -1),
+                blurRadius: 20,
+                spreadRadius: 1,
               ),
             ],
           ),
           child: AppNavigationBar(shell: shell),
         ),
       ],
-      child: shell,
+      child: SafeArea(
+        child: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (notification) {
+            notification.disallowIndicator();
+            return true;
+          },
+          child: Column(
+            children: [
+              LayoutHeader(title: title),
+              Expanded(child: shell),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

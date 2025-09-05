@@ -16,13 +16,13 @@ class BarStockApp extends ConsumerWidget {
       theme: ThemeData(
         typography: Typography.geist(sans: TextStyle(fontFamily: 'Geist')),
         colorScheme: ColorSchemes.lightRose(),
-        radius: 0.25,
+        radius: 0.75,
         surfaceBlur: 2,
       ),
       darkTheme: ThemeData(
         typography: Typography.geist(sans: TextStyle(fontFamily: 'Geist')),
-        colorScheme: ColorSchemes.lightStone(),
-        radius: 0.25,
+        colorScheme: ColorSchemes.darkRose(),
+        radius: 0.75,
         surfaceBlur: 2,
       ),
     );

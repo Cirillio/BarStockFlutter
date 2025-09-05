@@ -1,3 +1,5 @@
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+
 class AppRoutes {
   static const auth = '/auth';
 
@@ -18,6 +20,19 @@ class AppRoutes {
 
       default:
         return '';
+    }
+  }
+
+  static IconData getIcon(String branch) {
+    switch (branch) {
+      case AppRoutes.stock:
+        return LucideIcons.box;
+      case AppRoutes.sales:
+        return LucideIcons.briefcaseBusiness;
+      case AppRoutes.analytics:
+        return LucideIcons.chartPie;
+      default:
+        return LucideIcons.image;
     }
   }
 }
