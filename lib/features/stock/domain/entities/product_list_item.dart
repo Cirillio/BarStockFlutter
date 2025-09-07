@@ -56,6 +56,6 @@ class ProductListItem {
 
   @override
   String toString() {
-    return 'ProductListItem(id: $id, name: $name, qty: $qty)';
+    return 'ProductListItem(id: $id, name: $name, imageUrl: $imageUrl, category: $category, qty: $qty, unit: $unit, minStock: $minStock)';
   }
 }

@@ -41,7 +41,7 @@ class _FetchErrorReloadState extends State<FetchErrorReload> {
           items: [
             AccordionItem(
               trigger: AccordionTrigger(
-                child: Center(
+                child: const Center(
                   child: Text('See details', style: TextStyle(fontSize: 16)),
                 ),
               ),
@@ -64,7 +64,7 @@ class _FetchErrorReloadState extends State<FetchErrorReload> {
         const SizedBox(height: 16),
         Button(
           style: ButtonStyle(
-            variance: ButtonStyle.destructive(size: ButtonSize.small),
+            variance: const ButtonStyle.destructive(size: ButtonSize.small),
           ),
           onPressed: widget.onReload, // используем widget.onReload
           child: const Text(

@@ -27,7 +27,15 @@ class _StockPageState extends ConsumerState<StockPage> {
     final stockState = ref.watch(stockListControllerProvider);
 
     if (stockState.status == StateStatus.submitting) {
-      return buildSkeletonCategoryList(context);
+      return Column(
+        spacing: 12,
+        children: [
+          buildSkeletonCategoryList(context),
+          buildSkeletonCategoryList(context),
+          buildSkeletonCategoryList(context),
+          buildSkeletonCategoryList(context),
+        ],
+      );
     }
 
     if (stockState.status == StateStatus.failure) {

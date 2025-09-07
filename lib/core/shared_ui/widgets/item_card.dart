@@ -75,7 +75,7 @@ class _ItemCardState extends State<ItemCard>
             },
             child: Container(
               decoration: BoxDecoration(
-                color: context.theme.colorScheme.card,
+                color: context.theme.colorScheme.popover,
                 borderRadius: BorderRadius.circular(context.theme.radiusMd),
                 border: Border.all(color: context.theme.colorScheme.border),
               ),

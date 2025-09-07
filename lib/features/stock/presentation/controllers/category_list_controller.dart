@@ -5,6 +5,7 @@ import 'package:bar_stock/features/stock/domain/use_cases/get_category_use_case.
 import 'package:bar_stock/features/stock/domain/use_cases/get_products_by_category_use_case.dart';
 import 'package:bar_stock/features/stock/presentation/states/category_list_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class CategoryListController extends StateNotifier<CategoryListState> {
   final GetProductsByCategoryUseCase getProductsByCategoryUseCase;
@@ -17,7 +18,13 @@ class CategoryListController extends StateNotifier<CategoryListState> {
 
   Future<void> loadCategory(int id) async {
     log.i('CategoryListController | Loading category...');
-    state = state.copyWith(categoryStatus: StateStatus.submitting);
+    // Очищаем категорию через Future чтобы избежать ошибки lifecycle
+    Future.microtask(() {
+      state = state.copyWith(
+        category: null,
+        categoryStatus: StateStatus.submitting,
+      );
+    });
 
     final result = await getCategoryUseCase(id);
 
@@ -37,9 +44,12 @@ class CategoryListController extends StateNotifier<CategoryListState> {
     }
   }
 
-  Future<void> loadProducts(int id) async {
+  Future<void> loadItems(int id) async {
     log.i('CategoryListController | Loading products by category...');
-    state = state.copyWith(itemsStatus: StateStatus.submitting);
+    // Очищаем items через Future чтобы избежать ошибки lifecycle
+    Future.microtask(() {
+      state = state.copyWith(items: [], itemsStatus: StateStatus.submitting);
+    });
 
     final result = await getProductsByCategoryUseCase(id);
 
@@ -49,6 +59,7 @@ class CategoryListController extends StateNotifier<CategoryListState> {
           itemsStatus: StateStatus.success,
           items: result.data,
         );
+        log.i(result.map((p) => p.data));
       case Failure(:final message):
         state = state.copyWith(
           itemsStatus: StateStatus.failure,
@@ -63,6 +74,16 @@ class CategoryListController extends StateNotifier<CategoryListState> {
   }
 
   Future<void> load(int categoryId) async {
-    await Future.wait([loadCategory(categoryId), loadProducts(categoryId)]);
+    await Future.wait([
+      Future.microtask(() async => await loadCategory(categoryId)),
+      Future.microtask(() async => await loadItems(categoryId)),
+    ]).catchError((error) {
+      log.e(error);
+      return <void>[];
+    });
+  }
+
+  void clearState() {
+    state = CategoryListState(category: null, items: []);
   }
 }

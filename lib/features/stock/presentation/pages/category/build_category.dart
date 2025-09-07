@@ -18,12 +18,12 @@ class BuildCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     if (state.categoryStatus == StateStatus.submitting) {
       return Basic(
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         titleSpacing: 12,
-        title: Avatar(initials: '', size: 102).asSkeleton(),
-        content: Text(
+        title: const Avatar(initials: '', size: 102).asSkeleton(),
+        content: const Text(
           'Category name',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
         ).asSkeleton(),
         titleAlignment: Alignment.center,
         contentAlignment: Alignment.center,
@@ -43,8 +43,7 @@ class BuildCategory extends StatelessWidget {
             ? SvgPicture.network(
                 category.iconUrl,
                 fit: BoxFit.contain,
-                placeholderBuilder: (context) =>
-                    const Icon(LucideIcons.package),
+                placeholderBuilder: (context) => const Icon(LucideIcons.image),
                 errorBuilder: (context, error, stackTrace) =>
                     const Icon(LucideIcons.imageOff),
               )

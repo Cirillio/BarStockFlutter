@@ -31,6 +31,7 @@ class ProductCategorySection extends ConsumerWidget {
         SizedBox(
           height: itemHeight,
           child: ListView.separated(
+            key: ValueKey(DateTime.now()),
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             itemCount: items.length + 1,

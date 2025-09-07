@@ -39,7 +39,7 @@ class RootScreen extends ConsumerWidget {
             boxShadow: [
               BoxShadow(
                 color: context.theme.colorScheme.mutedForeground.withAlpha(30),
-                offset: Offset(0, -1),
+                offset: const Offset(0, -1),
                 blurRadius: 20,
                 spreadRadius: 1,
               ),
@@ -49,36 +49,31 @@ class RootScreen extends ConsumerWidget {
         ),
       ],
       child: SafeArea(
-        child: NotificationListener<OverscrollIndicatorNotification>(
-          onNotification: (notification) {
-            notification.disallowIndicator();
-            return true;
-          },
-          child: Column(
-            children: [
-              LayoutHeader(title: session?.user.email ?? "null"),
+        child: Column(
+          children: [
+            LayoutHeader(title: session?.user.email ?? "null"),
 
-              Expanded(
-                child: CustomScrollView(
-                  physics: const ClampingScrollPhysics(),
-                  slivers: [
-                    SliverPadding(
-                      padding: EdgeInsets.only(top: 16),
-                      sliver: SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: Column(
-                          children: [
-                            Expanded(child: shell),
-                            SizedBox(height: _getNavBarHeight()),
-                          ],
-                        ),
+            Expanded(
+              child: CustomScrollView(
+                key: ValueKey(location),
+                physics: const ClampingScrollPhysics(),
+                slivers: [
+                  SliverPadding(
+                    padding: const EdgeInsets.only(top: 16),
+                    sliver: SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Column(
+                        children: [
+                          Expanded(child: shell),
+                          SizedBox(height: _getNavBarHeight()),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

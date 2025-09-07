@@ -1,6 +1,5 @@
 import 'package:bar_stock/core/constants/state_status.dart';
 import 'package:bar_stock/core/shared_ui/widgets/fetch_error_reload.dart';
-import 'package:bar_stock/core/utils/logger.dart';
 import 'package:bar_stock/di/stock/stock_provider.dart';
 import 'package:bar_stock/features/stock/presentation/states/category_list_state.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -18,17 +17,11 @@ class CategoryPage extends HookConsumerWidget {
     final categoryCtrl = ref.read(categoryListControllerProvider.notifier);
     final categoryState = ref.watch(categoryListControllerProvider);
 
-    loadProds() async => await categoryCtrl.loadProducts(categoryId);
+    loadProds() async => await categoryCtrl.loadItems(categoryId);
     loadCategory() async => await categoryCtrl.loadCategory(categoryId);
 
     useEffect(() {
-      Future.wait([
-        Future.microtask(loadCategory),
-        Future.microtask(loadProds),
-      ]).catchError((error) {
-        log.e(error);
-        return <void>[];
-      });
+      categoryCtrl.load(categoryId);
       return null;
     }, [categoryId]);
 
