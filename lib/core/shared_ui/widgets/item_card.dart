@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
 
@@ -67,6 +68,9 @@ class _ItemCardState extends State<ItemCard>
                 _animationController.forward().then((_) {
                   _animationController.reverse();
                 });
+              }
+              if (widget.goTo.isNotEmpty) {
+                GoRouter.of(context).push(widget.goTo);
               }
             },
             child: Container(

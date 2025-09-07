@@ -26,34 +26,31 @@ class CategoriesItemList extends ConsumerWidget {
 
     final categories = categoriesItemList.keys.toList();
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ...categories.map((category) {
-            final items = categoriesItemList[category]!;
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: ProductCategorySection(category: category, items: items),
-            );
-          }),
-          Center(
-            child: Button(
-              onPressed: () {},
-              style: const ButtonStyle(
-                variance: ButtonStyle.outline(),
-                size: ButtonSize.small,
-                density: ButtonDensity.comfortable,
-              ),
-              child: Text(
-                'Показать все товары',
-                style: TextStyle(color: context.theme.colorScheme.foreground),
-              ),
-            ).withMargin(vertical: 8, horizontal: 12).withMargin(vertical: 12),
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ...categories.map((category) {
+          final items = categoriesItemList[category]!;
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: ProductCategorySection(category: category, items: items),
+          );
+        }),
+        Center(
+          child: Button(
+            onPressed: () {},
+            style: const ButtonStyle(
+              variance: ButtonStyle.outline(),
+              size: ButtonSize.small,
+              density: ButtonDensity.comfortable,
+            ),
+            child: Text(
+              'Показать все товары',
+              style: TextStyle(color: context.theme.colorScheme.foreground),
+            ),
+          ).withMargin(vertical: 8, horizontal: 12),
+        ),
+      ],
     );
   }
 }

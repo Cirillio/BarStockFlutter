@@ -1,7 +1,6 @@
 import 'package:bar_stock/core/shared_ui/widgets/item_card.dart';
 import 'package:bar_stock/features/stock/domain/entities/category.dart';
 import 'package:bar_stock/features/stock/domain/entities/product_list_item.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
@@ -41,6 +40,7 @@ class ProductCategorySection extends ConsumerWidget {
                 return SizedBox(
                   width: itemWidth,
                   child: ItemCard(
+                    goTo: '/stock/category/${category.id}',
                     child: Center(
                       child: Icon(
                         LucideIcons.grip,

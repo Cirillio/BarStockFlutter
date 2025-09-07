@@ -1,3 +1,4 @@
+import 'package:bar_stock/di/supabase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bar_stock/di/auth/auth_provider.dart';
@@ -11,6 +12,14 @@ class RootScreen extends ConsumerWidget {
   final StatefulNavigationShell shell;
   const RootScreen({super.key, required this.shell});
 
+  static final GlobalKey _navBarKey = GlobalKey();
+
+  double _getNavBarHeight() {
+    final renderBox =
+        _navBarKey.currentContext?.findRenderObject() as RenderBox?;
+    return renderBox?.size.height ?? 80; // fallback height
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final ctrl = ref.read(authControllerProvider.notifier);
@@ -18,9 +27,11 @@ class RootScreen extends ConsumerWidget {
     // final router = GoRouter.of(context);
     final location = GoRouterState.of(context).matchedLocation;
     final title = AppRoutes.getTitle(location);
+    final supa = ref.read(supabaseClientProvider);
+    final session = supa.auth.currentSession;
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      floatingFooter: true,
 
       footers: [
         DecoratedBox(
@@ -34,7 +45,7 @@ class RootScreen extends ConsumerWidget {
               ),
             ],
           ),
-          child: AppNavigationBar(shell: shell),
+          child: AppNavigationBar(key: _navBarKey, shell: shell),
         ),
       ],
       child: SafeArea(
@@ -45,8 +56,27 @@ class RootScreen extends ConsumerWidget {
           },
           child: Column(
             children: [
-              LayoutHeader(title: title),
-              Expanded(child: shell),
+              LayoutHeader(title: session?.user.email ?? "null"),
+
+              Expanded(
+                child: CustomScrollView(
+                  physics: const ClampingScrollPhysics(),
+                  slivers: [
+                    SliverPadding(
+                      padding: EdgeInsets.only(top: 16),
+                      sliver: SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: Column(
+                          children: [
+                            Expanded(child: shell),
+                            SizedBox(height: _getNavBarHeight()),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

@@ -22,18 +22,29 @@ class LayoutHeader extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Button(
-              onPressed: () {},
-              style: const ButtonStyle(
-                shape: ButtonShape.circle,
-                variance: ButtonVariance.secondary,
-                density: ButtonDensity.icon,
-              ),
-              child: Icon(LucideIcons.user, size: 16),
-            ),
-
             Row(
-              spacing: 12,
+              spacing: 6,
+              children: [
+                Button(
+                  onPressed: () {},
+                  style: const ButtonStyle(
+                    shape: ButtonShape.circle,
+                    variance: ButtonVariance.primary,
+                    density: ButtonDensity.icon,
+                  ),
+                  child: Icon(LucideIcons.user, size: 16),
+                ),
+                OutlineBadge(
+                  child: Text(
+                    title,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              spacing: 6,
               children: [
                 Button(
                   onPressed: () {},

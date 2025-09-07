@@ -1,5 +1,6 @@
 import 'package:bar_stock/features/stock/domain/entities/item_unit.dart';
 import 'package:bar_stock/features/stock/domain/entities/product_list_item.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
@@ -28,7 +29,7 @@ class _ProductListItemCardState extends State<ProductListItemCard> {
           Flexible(
             flex: 7,
             child: Container(
-              margin: const EdgeInsets.all(6),
+              margin: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(context.theme.radiusMd),
                 color: Colors.white,
@@ -38,17 +39,14 @@ class _ProductListItemCardState extends State<ProductListItemCard> {
                 child: Stack(
                   children: [
                     Positioned.fill(
-                      child: Image.network(
-                        widget.item.imageUrl,
+                      child: CachedNetworkImage(
+                        imageUrl: widget.item.imageUrl,
+                        memCacheWidth: 300,
                         fit: BoxFit.contain,
-                        errorBuilder: (_, __, ___) => Container(
-                          color: context.theme.colorScheme.muted,
-                          child: Icon(
-                            LucideIcons.image,
-                            size: 32,
-                            color: context.theme.colorScheme.mutedForeground,
-                          ),
-                        ),
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) =>
+                            const Icon(LucideIcons.imageOff),
                       ),
                     ),
                     // Индикатор низких остатков
@@ -74,7 +72,7 @@ class _ProductListItemCardState extends State<ProductListItemCard> {
           Flexible(
             flex: 3,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(6, 0, 6, 6),
+              padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

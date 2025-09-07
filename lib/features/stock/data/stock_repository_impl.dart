@@ -13,6 +13,21 @@ class StockRepositoryImpl implements StockRepository {
   StockRepositoryImpl(this.ds);
 
   @override
+  Future<Result<Category>> getCategoryById(int categoryId) async {
+    try {
+      log.i("StockRepositoryImpl | Getting category by $categoryId");
+      final res = await ds.getCategoryById(categoryId);
+
+      log.i('StockRepositoryImpl | Got $res');
+
+      return Success(Category.fromJson(res));
+    } catch (e) {
+      log.e('StockRepositoryImpl | Error: $e');
+      return const Failure("Error getting category");
+    }
+  }
+
+  @override
   Future<Result<AllProductListByCategory>> getProducts() async {
     try {
       log.i('StockRepositoryImpl | Getting all products');
@@ -39,8 +54,21 @@ class StockRepositoryImpl implements StockRepository {
   }
 
   @override
-  Future<Result<ProductListByCategory>> getByCategory(int categoryId) async {
-    return const Failure('not implemented');
+  Future<Result<ProductList>> getByCategory(int categoryId) async {
+    try {
+      log.i('StockRepoistoryImpl | Getting products for category $categoryId');
+
+      final res = await ds.getProductsByCategory(categoryId);
+
+      final ProductList finalProducts = res
+          .map((p) => ProductListItem.fromJson(p))
+          .toList();
+
+      return Success(finalProducts);
+    } catch (e) {
+      log.e("Failed to fetch products by category $categoryId: $e");
+      return const Failure("Error getting products by category in repository");
+    }
   }
 
   @override

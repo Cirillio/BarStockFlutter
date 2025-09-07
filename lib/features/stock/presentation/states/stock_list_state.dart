@@ -1,22 +1,18 @@
 import 'package:bar_stock/core/constants/state_status.dart';
 import 'package:bar_stock/features/stock/domain/entities/category.dart';
 import 'package:bar_stock/features/stock/domain/entities/product_list_item.dart';
+import 'package:bar_stock/features/stock/presentation/states/stock_state.dart';
 
-class StockListState {
-  final StateStatus status;
+class StockListState extends StockState {
   final Map<Category, List<ProductListItem>> stockList;
-  final Map<String, String> errors;
+  final StateStatus status;
 
   const StockListState({
     this.status = StateStatus.initial,
+    super.errors,
     this.stockList = const {},
-    this.errors = const {},
   });
 
-  bool get hasErrors => errors.isNotEmpty;
-  bool get isLoading => status == StateStatus.submitting;
-  bool get isSuccess => status == StateStatus.success;
-  bool get isFailure => status == StateStatus.failure;
   bool get hasData => stockList.isNotEmpty;
 
   StockListState copyWith({

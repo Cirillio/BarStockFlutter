@@ -1,3 +1,4 @@
+import 'package:bar_stock/features/stock/domain/entities/category.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:bar_stock/core/utils/logger.dart';
 
@@ -57,6 +58,28 @@ class StockDataSource {
 
   // Специализированные методы для разных контекстов
 
+  Future<Map<String, dynamic>> getCategoryById(int categoryId) async {
+    try {
+      log.i("StockDataSource | Fetching category by id: $categoryId");
+
+      final res = await _client
+          .from('categories')
+          .select()
+          .eq('id', categoryId)
+          .single();
+
+      return res;
+    } on PostgrestException catch (e) {
+      log.e("StockDataSource | Database error: ${e.message}");
+      throw StockDataSourceException(
+        "Failed to fetch category by id($categoryId): ${e.message}",
+      );
+    } catch (e) {
+      log.e("StockDataSource | Unexpected error: $e");
+      throw StockDataSourceException("Unexpected error occurred");
+    }
+  }
+
   Future<ProductsResponse> getProductsForList() async {
     try {
       log.i("StockDataSource | Fetching products for list view");
@@ -73,7 +96,7 @@ class StockDataSource {
             .from('products')
             .select(listItemsQuery)
             .eq('category_id', c['id'])
-            .order('created_at')
+            .order('inventory(qty)')
             .limit(3);
         stockList.addAll(prod);
       }
@@ -162,7 +185,7 @@ class StockDataSource {
     }
   }
 
-  Future<ProductsResponse> getProductsByCategory(String categoryId) async {
+  Future<ProductsResponse> getProductsByCategory(int categoryId) async {
     try {
       log.i("StockDataSource | Fetching products for category: $categoryId");
 

@@ -49,12 +49,13 @@ dependencies:
   go_router: ^16.1.0
   supabase_flutter: ^2.9.1
   logger: ^2.6.1
+  cached_network_image: ^3.4.1
 
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/icons/appLogo.png"
-  
+
   adaptive_icon_background: "#A43D47"
   adaptive_icon_foreground: "assets/icons/appLogo.png"
 
