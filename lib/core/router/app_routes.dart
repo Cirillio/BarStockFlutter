@@ -3,6 +3,9 @@ import 'package:shadcn_flutter/shadcn_flutter.dart';
 class AppRoutes {
   static const auth = '/auth';
 
+  static const profile = '/profile';
+  static const settings = '/settings';
+
   static const root = '/';
 
   static const stock = '/stock';

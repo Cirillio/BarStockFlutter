@@ -1,5 +1,8 @@
 sealed class Result<T> {
   const Result();
+
+  bool get isSuccess => this is Success;
+  bool get isFailure => this is Failure;
 }
 
 class Success<T> extends Result<T> {

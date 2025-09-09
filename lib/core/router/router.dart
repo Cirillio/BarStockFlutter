@@ -1,3 +1,4 @@
+import 'package:bar_stock/features/profile/presentation/page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bar_stock/screen/auth_screen.dart';
@@ -5,7 +6,6 @@ import 'package:bar_stock/screen/root_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:bar_stock/core/router/router_listenable.dart';
 import 'package:bar_stock/core/router/app_routes.dart';
-// import 'package:bar_stock/features/profile/presentation/page.dart';
 import 'package:bar_stock/features/stock/presentation/pages/page.dart';
 import 'package:bar_stock/features/stock/presentation/pages/category/page.dart';
 import 'package:bar_stock/features/analytics/presentation/page.dart';
@@ -27,6 +27,12 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.auth,
         name: 'auth',
         builder: (context, state) => const AuthScreen(),
+      ),
+
+      GoRoute(
+        path: AppRoutes.profile,
+        name: 'profile',
+        builder: (context, state) => const ProfilePage(),
       ),
 
       StatefulShellRoute.indexedStack(

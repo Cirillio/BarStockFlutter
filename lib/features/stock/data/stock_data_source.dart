@@ -1,4 +1,4 @@
-import 'package:bar_stock/features/stock/domain/entities/category.dart';
+// import 'package:bar_stock/features/stock/domain/entities/category.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:bar_stock/core/utils/logger.dart';
 
@@ -9,9 +9,6 @@ class StockDataSource {
 
   StockDataSource(this._client);
 
-  // Оптимизированные запросы для разных контекстов
-
-  // Для списка товаров на главной (только необходимые поля)
   static const String listItemsQuery = '''
     id, 
     name, 

@@ -8,6 +8,11 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.ds);
 
   @override
+  Future<bool> hasValidToken() async {
+    return ds.session != null;
+  }
+
+  @override
   bool get isSignIn => ds.session != null;
 
   @override

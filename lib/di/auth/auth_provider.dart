@@ -9,6 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:bar_stock/di/supabase.dart';
 
 import 'package:bar_stock/features/auth/presentation/login/login_state.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 final authDataSourceProvider = Provider<AuthDataSource>(
   (ref) => AuthDataSource(ref.read(supabaseClientProvider)),
@@ -37,3 +38,7 @@ final authControllerProvider =
         ref.read(signOutUseCaseProvider),
       ),
     );
+
+final authStateProvider = StreamProvider<AuthState>((ref) {
+  return Supabase.instance.client.auth.onAuthStateChange;
+});

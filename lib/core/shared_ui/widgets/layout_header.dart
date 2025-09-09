@@ -26,7 +26,9 @@ class LayoutHeader extends ConsumerWidget {
               spacing: 6,
               children: [
                 Button(
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).push(AppRoutes.profile);
+                  },
                   style: const ButtonStyle(
                     shape: ButtonShape.circle,
                     variance: ButtonVariance.primary,
