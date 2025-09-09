@@ -3,9 +3,9 @@ import 'package:bar_stock/di/auth/auth_provider.dart';
 import 'package:bar_stock/di/profile/profile_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
+import 'package:bar_stock/core/shared_ui/widgets/go_back_button.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
@@ -34,19 +34,7 @@ class ProfilePage extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Button(
-                        onPressed: GoRouter.of(context).pop,
-                        style: const ButtonStyle(
-                          variance: ButtonVariance.ghost,
-                          shape: ButtonShape.circle,
-                          density: ButtonDensity.icon,
-                        ),
-                        child: Icon(
-                          LucideIcons.chevronLeft,
-                          size: 16,
-                          color: context.theme.colorScheme.primary,
-                        ),
-                      ),
+                      GoBackButton(),
                       Button(
                         onPressed: () {},
                         style: const ButtonStyle(

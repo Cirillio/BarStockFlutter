@@ -1,29 +1,27 @@
 import 'package:bar_stock/core/constants/state_status.dart';
 import 'package:bar_stock/di/stock/stock_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:bar_stock/features/stock/presentation/widgets/categories_item_list.dart';
 import 'package:bar_stock/features/stock/presentation/widgets/skeletons/main_page_skeletons.dart';
 import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
 
-class StockPage extends ConsumerStatefulWidget {
+class StockPage extends HookConsumerWidget {
   const StockPage({super.key});
 
   @override
-  ConsumerState<StockPage> createState() => _StockPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final stockCtrl = ref.read(stockListControllerProvider.notifier);
 
-class _StockPageState extends ConsumerState<StockPage> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(stockListControllerProvider.notifier).loadProductsForList();
-    });
-  }
+    loadProds() async => await stockCtrl.loadProductsForList();
 
-  @override
-  Widget build(BuildContext context) {
+    useEffect(() {
+      Future.wait([Future.microtask(loadProds)]);
+
+      return null;
+    }, []);
+
     final stockState = ref.watch(stockListControllerProvider);
 
     if (stockState.status == StateStatus.submitting) {

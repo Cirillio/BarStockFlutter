@@ -1,5 +1,6 @@
 import 'package:bar_stock/core/constants/state_status.dart';
 import 'package:bar_stock/core/shared_ui/widgets/fetch_error_reload.dart';
+import 'package:bar_stock/core/shared_ui/widgets/go_back_button.dart';
 import 'package:bar_stock/di/stock/stock_provider.dart';
 import 'package:bar_stock/features/stock/presentation/states/category_list_state.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -46,7 +47,16 @@ Widget _buildPage(
 ) {
   return Column(
     children: [
-      BuildCategory(context: context, state: state, load: loadCategory),
+      SizedBox(
+        width: double.infinity,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            BuildCategory(context: context, state: state, load: loadCategory),
+            Positioned(left: 20, top: 4, child: GoBackButton()),
+          ],
+        ),
+      ),
       BuildProducts(context: context, state: state, load: loadProducts),
     ],
   );
