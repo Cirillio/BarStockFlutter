@@ -1,3 +1,4 @@
+import 'package:bar_stock/features/analytics/presentation/distribution_page.dart';
 import 'package:bar_stock/features/profile/presentation/page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -10,6 +11,7 @@ import 'package:bar_stock/features/stock/presentation/pages/page.dart';
 import 'package:bar_stock/features/stock/presentation/pages/category/page.dart';
 import 'package:bar_stock/features/analytics/presentation/page.dart';
 import 'package:bar_stock/features/sales/presentation/page.dart';
+import 'package:bar_stock/features/analytics/data/types/analytics_section.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final auth = Supabase.instance.client.auth;
@@ -68,6 +70,20 @@ final routerProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: AppRoutes.analytics,
                 builder: (context, state) => const AnalyticsPage(),
+                routes: [
+                  GoRoute(
+                    path: AnalyticsSection.stockLevels.route,
+                    builder: (context, state) => const DistributionPage(),
+                  ),
+                  GoRoute(
+                    path: AnalyticsSection.criticalStock.route,
+                    builder: (context, state) => const DistributionPage(),
+                  ),
+                  GoRoute(
+                    path: AnalyticsSection.inventoryValue.route,
+                    builder: (context, state) => const DistributionPage(),
+                  ),
+                ],
               ),
             ],
           ),
