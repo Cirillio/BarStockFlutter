@@ -1,5 +1,5 @@
-import 'package:bar_stock/features/stock/domain/entities/category.dart';
-import 'package:bar_stock/features/stock/domain/entities/item_unit.dart';
+// import 'package:bar_stock/features/stock/domain/entities/category.dart';
+// import 'package:bar_stock/features/stock/domain/entities/item_unit.dart';
 import 'package:bar_stock/features/stock/domain/entities/product_list_item.dart';
 import 'package:bar_stock/features/stock/presentation/widgets/product_category_card.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';

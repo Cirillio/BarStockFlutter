@@ -1,11 +1,11 @@
 import 'package:bar_stock/core/router/app_routes.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
+// import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:bar_stock/di/auth/auth_provider.dart';
-import 'package:bar_stock/core/constants/state_status.dart';
+// import 'package:supabase_flutter/supabase_flutter.dart';
+// import 'package:bar_stock/di/auth/auth_provider.dart';
+// import 'package:bar_stock/core/constants/state_status.dart';
 
 class LayoutHeader extends ConsumerWidget {
   final String title;
@@ -13,9 +13,9 @@ class LayoutHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final auth = Supabase.instance.client.auth;
-    final ctrl = ref.read(authControllerProvider.notifier);
-    final authState = ref.watch(authControllerProvider);
+    // final auth = Supabase.instance.client.auth;
+    // final ctrl = ref.read(authControllerProvider.notifier);
+    // final authState = ref.watch(authControllerProvider);
     return Column(
       children: [
         Row(

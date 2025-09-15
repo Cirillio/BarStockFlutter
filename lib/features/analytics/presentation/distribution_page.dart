@@ -7,7 +7,7 @@ class DistributionPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(stockAnalyticsController);
+    // final state = ref.watch(stockAnalyticsController);
     final controller = ref.read(stockAnalyticsController.notifier);
 
     Future.wait([Future.microtask(() async => await controller.initialize())]);

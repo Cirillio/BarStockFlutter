@@ -1,9 +1,9 @@
 import 'package:bar_stock/di/supabase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:bar_stock/di/auth/auth_provider.dart';
+// import 'package:bar_stock/di/auth/auth_provider.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:bar_stock/core/router/app_routes.dart';
+// import 'package:bar_stock/core/router/app_routes.dart';
 import "package:bar_stock/core/shared_ui/widgets/app_navigation_bar.dart";
 import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
 import 'package:bar_stock/core/shared_ui/widgets/layout_header.dart';
@@ -26,7 +26,7 @@ class RootScreen extends ConsumerWidget {
     // final authState = ref.watch(authControllerProvider);
     // final router = GoRouter.of(context);
     final location = GoRouterState.of(context).matchedLocation;
-    final title = AppRoutes.getTitle(location);
+    // final title = AppRoutes.getTitle(location);
     final supa = ref.read(supabaseClientProvider);
     final session = supa.auth.currentSession;
 

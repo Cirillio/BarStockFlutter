@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:bar_stock/features/stock/presentation/widgets/categories_item_list.dart';
-import 'package:bar_stock/features/stock/presentation/widgets/skeletons/main_page_skeletons.dart';
+// import 'package:bar_stock/features/stock/presentation/widgets/skeletons/main_page_skeletons.dart';
 import 'package:shadcn_flutter/shadcn_flutter_extension.dart';
 
 class StockPage extends HookConsumerWidget {
