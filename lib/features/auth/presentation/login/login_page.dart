@@ -15,6 +15,7 @@ class LoginPage extends HookConsumerWidget {
 
     final state = ref.watch(authControllerProvider);
     final ctrl = ref.read(authControllerProvider.notifier);
+
     final email = useTextEditingController();
     final emailFocus = useFocusNode();
     final pass = useTextEditingController();

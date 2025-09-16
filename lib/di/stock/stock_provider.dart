@@ -11,10 +11,6 @@ import 'package:bar_stock/features/stock/presentation/states/category_list_state
 import 'package:bar_stock/features/stock/presentation/states/stock_list_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// ============================================================================
-// DATA LAYER
-// ============================================================================
-
 final stockDataSourceProvider = Provider<StockDataSource>(
   (ref) => StockDataSource(ref.read(supabaseClientProvider)),
 );
@@ -22,10 +18,6 @@ final stockDataSourceProvider = Provider<StockDataSource>(
 final stockRepositoryProvider = Provider<StockRepository>(
   (ref) => StockRepositoryImpl(ref.read(stockDataSourceProvider)),
 );
-
-// ============================================================================
-// DOMAIN LAYER - USE CASES
-// ============================================================================
 
 final getProductsForListUseCaseProvider = Provider<GetProductsForListUseCase>(
   (ref) =>
@@ -41,11 +33,7 @@ final getProductsByCategoryProvider = Provider<GetProductsByCategoryUseCase>(
 final getCategoryProvider = Provider<GetCategoryUseCase>(
   (ref) => GetCategoryUseCase(repository: ref.read(stockRepositoryProvider)),
 );
-// ============================================================================
-// PRESENTATION LAYER - CONTROLLERS
-// ============================================================================
 
-/// Контроллер для получения облегченных данных товаров (для списков)
 final stockListControllerProvider =
     StateNotifierProvider<StockListController, StockListState>(
       (ref) => StockListController(

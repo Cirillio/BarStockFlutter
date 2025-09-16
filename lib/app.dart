@@ -12,7 +12,9 @@ class BarStockApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       scaling: AdaptiveScaling.mobile,
       title: 'Bar Stock',
+
       routerConfig: router,
+
       theme: ThemeData(
         typography: Typography.geist(sans: TextStyle(fontFamily: 'Geist')),
         colorScheme: ColorSchemes.lightRose(),
